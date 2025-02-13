@@ -138,11 +138,11 @@ namespace WindowsFormsAppFinal
             if (e.ColumnIndex == dgJeu.Columns["btnModifier"].Index && e.RowIndex >= 0)
             {
                 int id = (int)dgJeu.Rows[e.RowIndex].Cells["ID"].Value;
-                string nom = (string)dgJeu.Rows[e.RowIndex].Cells["Nom"].Value;
-                string email = (string)dgJeu.Rows[e.RowIndex].Cells["Email"].Value;
+                string nom = (string)dgJeu.Rows[e.RowIndex].Cells["Titre"].Value;
+                string email = (string)dgJeu.Rows[e.RowIndex].Cells["Genre"].Value;
 
                 UpdateFormInstance = new UpdateForm(id);
-                UpdateFormInstance.ParentForm = this;
+                UpdateFormInstance.parentForm = this;
                 UpdateFormInstance.Show();
             }
         }
@@ -159,6 +159,16 @@ namespace WindowsFormsAppFinal
 
                 dgJeu.DataSource = dt;
             }
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtPrix_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
