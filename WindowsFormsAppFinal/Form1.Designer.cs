@@ -30,6 +30,8 @@
         {
             this.dgJeu = new System.Windows.Forms.DataGridView();
             this.gbNvJeu = new System.Windows.Forms.GroupBox();
+            this.lblErrorPrixLettre = new System.Windows.Forms.Label();
+            this.lblErrorPrix = new System.Windows.Forms.Label();
             this.yearsPicker = new System.Windows.Forms.DateTimePicker();
             this.lblStatut = new System.Windows.Forms.Label();
             this.lblPrix = new System.Windows.Forms.Label();
@@ -42,31 +44,28 @@
             this.genreList = new System.Windows.Forms.ComboBox();
             this.txtTitre = new System.Windows.Forms.TextBox();
             this.lblErrorTitre = new System.Windows.Forms.Label();
-            this.lblErrorGenre = new System.Windows.Forms.Label();
-            this.lblErrorYears = new System.Windows.Forms.Label();
-            this.lblErrorStatut = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgJeu)).BeginInit();
             this.gbNvJeu.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgJeu
             // 
+            this.dgJeu.BackgroundColor = System.Drawing.Color.AliceBlue;
             this.dgJeu.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgJeu.Location = new System.Drawing.Point(382, 65);
+            this.dgJeu.Location = new System.Drawing.Point(495, 67);
             this.dgJeu.Name = "dgJeu";
             this.dgJeu.RowHeadersWidth = 51;
             this.dgJeu.RowTemplate.Height = 24;
-            this.dgJeu.Size = new System.Drawing.Size(1061, 536);
+            this.dgJeu.Size = new System.Drawing.Size(1167, 536);
             this.dgJeu.TabIndex = 0;
             this.dgJeu.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // gbNvJeu
             // 
-            this.gbNvJeu.BackColor = System.Drawing.Color.FloralWhite;
-            this.gbNvJeu.Controls.Add(this.lblErrorStatut);
-            this.gbNvJeu.Controls.Add(this.lblErrorYears);
-            this.gbNvJeu.Controls.Add(this.lblErrorGenre);
+            this.gbNvJeu.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.gbNvJeu.Controls.Add(this.lblErrorTitre);
+            this.gbNvJeu.Controls.Add(this.lblErrorPrixLettre);
+            this.gbNvJeu.Controls.Add(this.lblErrorPrix);
             this.gbNvJeu.Controls.Add(this.yearsPicker);
             this.gbNvJeu.Controls.Add(this.lblStatut);
             this.gbNvJeu.Controls.Add(this.lblPrix);
@@ -79,29 +78,50 @@
             this.gbNvJeu.Controls.Add(this.genreList);
             this.gbNvJeu.Controls.Add(this.txtTitre);
             this.gbNvJeu.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.gbNvJeu.Location = new System.Drawing.Point(12, 88);
+            this.gbNvJeu.Location = new System.Drawing.Point(45, 95);
             this.gbNvJeu.Name = "gbNvJeu";
-            this.gbNvJeu.Size = new System.Drawing.Size(346, 498);
+            this.gbNvJeu.Size = new System.Drawing.Size(384, 498);
             this.gbNvJeu.TabIndex = 1;
             this.gbNvJeu.TabStop = false;
             this.gbNvJeu.Text = "Nouveau Jeu";
+            // 
+            // lblErrorPrixLettre
+            // 
+            this.lblErrorPrixLettre.AutoSize = true;
+            this.lblErrorPrixLettre.ForeColor = System.Drawing.Color.Red;
+            this.lblErrorPrixLettre.Location = new System.Drawing.Point(58, 328);
+            this.lblErrorPrixLettre.Name = "lblErrorPrixLettre";
+            this.lblErrorPrixLettre.Size = new System.Drawing.Size(301, 20);
+            this.lblErrorPrixLettre.TabIndex = 23;
+            this.lblErrorPrixLettre.Text = "Le prix doit être une valeur numérique !";
+            this.lblErrorPrixLettre.Visible = false;
+            // 
+            // lblErrorPrix
+            // 
+            this.lblErrorPrix.AutoSize = true;
+            this.lblErrorPrix.ForeColor = System.Drawing.Color.Red;
+            this.lblErrorPrix.Location = new System.Drawing.Point(69, 308);
+            this.lblErrorPrix.Name = "lblErrorPrix";
+            this.lblErrorPrix.Size = new System.Drawing.Size(290, 20);
+            this.lblErrorPrix.TabIndex = 22;
+            this.lblErrorPrix.Text = "Le prix ne peut pas etre inférieur à 0 !";
+            this.lblErrorPrix.Visible = false;
             // 
             // yearsPicker
             // 
             this.yearsPicker.CustomFormat = "yyyy";
             this.yearsPicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.yearsPicker.Location = new System.Drawing.Point(138, 209);
+            this.yearsPicker.Location = new System.Drawing.Point(157, 209);
             this.yearsPicker.MinDate = new System.DateTime(1950, 1, 1, 0, 0, 0, 0);
             this.yearsPicker.Name = "yearsPicker";
             this.yearsPicker.ShowUpDown = true;
             this.yearsPicker.Size = new System.Drawing.Size(152, 26);
             this.yearsPicker.TabIndex = 16;
-            this.yearsPicker.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // lblStatut
             // 
             this.lblStatut.AutoSize = true;
-            this.lblStatut.Location = new System.Drawing.Point(11, 330);
+            this.lblStatut.Location = new System.Drawing.Point(6, 376);
             this.lblStatut.Name = "lblStatut";
             this.lblStatut.Size = new System.Drawing.Size(53, 20);
             this.lblStatut.TabIndex = 15;
@@ -110,7 +130,7 @@
             // lblPrix
             // 
             this.lblPrix.AutoSize = true;
-            this.lblPrix.Location = new System.Drawing.Point(11, 266);
+            this.lblPrix.Location = new System.Drawing.Point(6, 282);
             this.lblPrix.Name = "lblPrix";
             this.lblPrix.Size = new System.Drawing.Size(38, 20);
             this.lblPrix.TabIndex = 14;
@@ -142,13 +162,12 @@
             this.lblTitre.Size = new System.Drawing.Size(43, 20);
             this.lblTitre.TabIndex = 11;
             this.lblTitre.Text = "Titre";
-            this.lblTitre.Click += new System.EventHandler(this.label1_Click);
             // 
             // btnAddJeu
             // 
-            this.btnAddJeu.Location = new System.Drawing.Point(187, 399);
+            this.btnAddJeu.Location = new System.Drawing.Point(250, 439);
             this.btnAddJeu.Name = "btnAddJeu";
-            this.btnAddJeu.Size = new System.Drawing.Size(144, 66);
+            this.btnAddJeu.Size = new System.Drawing.Size(109, 53);
             this.btnAddJeu.TabIndex = 2;
             this.btnAddJeu.Text = "Ajouter";
             this.btnAddJeu.UseVisualStyleBackColor = true;
@@ -162,15 +181,14 @@
             "Disponible",
             "Rupture de stock",
             "Vendu"});
-            this.statutList.Location = new System.Drawing.Point(138, 327);
+            this.statutList.Location = new System.Drawing.Point(157, 368);
             this.statutList.Name = "statutList";
             this.statutList.Size = new System.Drawing.Size(152, 28);
             this.statutList.TabIndex = 9;
-            this.statutList.SelectedIndexChanged += new System.EventHandler(this.statutList_SelectedIndexChanged);
             // 
             // txtPrix
             // 
-            this.txtPrix.Location = new System.Drawing.Point(138, 263);
+            this.txtPrix.Location = new System.Drawing.Point(157, 279);
             this.txtPrix.Name = "txtPrix";
             this.txtPrix.Size = new System.Drawing.Size(152, 26);
             this.txtPrix.TabIndex = 8;
@@ -184,67 +202,36 @@
             "Action",
             "RPG",
             "Sport"});
-            this.genreList.Location = new System.Drawing.Point(138, 144);
+            this.genreList.Location = new System.Drawing.Point(157, 144);
             this.genreList.Name = "genreList";
             this.genreList.Size = new System.Drawing.Size(152, 28);
             this.genreList.TabIndex = 6;
-            this.genreList.SelectedIndexChanged += new System.EventHandler(this.genreList_SelectedIndexChanged);
             // 
             // txtTitre
             // 
-            this.txtTitre.Location = new System.Drawing.Point(138, 74);
+            this.txtTitre.Location = new System.Drawing.Point(157, 74);
             this.txtTitre.Name = "txtTitre";
             this.txtTitre.Size = new System.Drawing.Size(152, 26);
             this.txtTitre.TabIndex = 5;
-            this.txtTitre.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
+            this.txtTitre.TextChanged += new System.EventHandler(this.txtTitre_TextChanged);
             // 
             // lblErrorTitre
             // 
             this.lblErrorTitre.AutoSize = true;
             this.lblErrorTitre.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorTitre.Location = new System.Drawing.Point(163, 103);
+            this.lblErrorTitre.Location = new System.Drawing.Point(112, 103);
             this.lblErrorTitre.Name = "lblErrorTitre";
-            this.lblErrorTitre.Size = new System.Drawing.Size(104, 20);
-            this.lblErrorTitre.TabIndex = 17;
-            this.lblErrorTitre.Text = "Titre invalide";
-            // 
-            // lblErrorGenre
-            // 
-            this.lblErrorGenre.AutoSize = true;
-            this.lblErrorGenre.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorGenre.Location = new System.Drawing.Point(156, 175);
-            this.lblErrorGenre.Name = "lblErrorGenre";
-            this.lblErrorGenre.Size = new System.Drawing.Size(116, 20);
-            this.lblErrorGenre.TabIndex = 18;
-            this.lblErrorGenre.Text = "Genre invalide";
-            // 
-            // lblErrorYears
-            // 
-            this.lblErrorYears.AutoSize = true;
-            this.lblErrorYears.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorYears.Location = new System.Drawing.Point(156, 240);
-            this.lblErrorYears.Name = "lblErrorYears";
-            this.lblErrorYears.Size = new System.Drawing.Size(117, 20);
-            this.lblErrorYears.TabIndex = 19;
-            this.lblErrorYears.Text = "Année invalide";
-            // 
-            // lblErrorStatut
-            // 
-            this.lblErrorStatut.AutoSize = true;
-            this.lblErrorStatut.ForeColor = System.Drawing.Color.Red;
-            this.lblErrorStatut.Location = new System.Drawing.Point(153, 358);
-            this.lblErrorStatut.Name = "lblErrorStatut";
-            this.lblErrorStatut.Size = new System.Drawing.Size(114, 20);
-            this.lblErrorStatut.TabIndex = 21;
-            this.lblErrorStatut.Text = "Statut invalide";
-            this.lblErrorStatut.Click += new System.EventHandler(this.label5_Click);
+            this.lblErrorTitre.Size = new System.Drawing.Size(233, 20);
+            this.lblErrorTitre.TabIndex = 24;
+            this.lblErrorTitre.Text = "Le titre ne peut pas être vide !";
+            this.lblErrorTitre.Visible = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(1455, 675);
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ClientSize = new System.Drawing.Size(1691, 803);
             this.Controls.Add(this.gbNvJeu);
             this.Controls.Add(this.dgJeu);
             this.Name = "Form1";
@@ -271,9 +258,8 @@
         private System.Windows.Forms.Label lblAnneSortie;
         private System.Windows.Forms.Label lblGenre;
         private System.Windows.Forms.DateTimePicker yearsPicker;
-        private System.Windows.Forms.Label lblErrorStatut;
-        private System.Windows.Forms.Label lblErrorYears;
-        private System.Windows.Forms.Label lblErrorGenre;
+        private System.Windows.Forms.Label lblErrorPrix;
+        private System.Windows.Forms.Label lblErrorPrixLettre;
         private System.Windows.Forms.Label lblErrorTitre;
     }
 }
