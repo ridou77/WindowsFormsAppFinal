@@ -114,7 +114,6 @@ namespace WindowsFormsAppFinal
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            Console.WriteLine("Cell clicked");
             // stocker dans une var de typê entier la valeur de l'ID a la row e.RowIndex
 
             if (e.ColumnIndex == dgJeu.Columns["btnSupprimer"].Index && e.RowIndex >= 0)
@@ -149,11 +148,9 @@ namespace WindowsFormsAppFinal
             }
             if (e.ColumnIndex == dgJeu.Columns["btnModifier"].Index && e.RowIndex >= 0)
             {
-                int id = (int)dgJeu.Rows[e.RowIndex].Cells["ID"].Value;
-                string nom = (string)dgJeu.Rows[e.RowIndex].Cells["Titre"].Value;
-                string email = (string)dgJeu.Rows[e.RowIndex].Cells["Genre"].Value;
-
-                UpdateFormInstance = new UpdateForm(id);//en lien avec le deuxieme fourmaire de mofiication
+                int idJeu = (int)dgJeu.Rows[e.RowIndex].Cells["id"].Value;
+                
+                UpdateFormInstance = new UpdateForm(idJeu);//en lien avec le deuxieme fourmaire de mofiication
                 UpdateFormInstance.parentForm = this;
                 UpdateFormInstance.Show();
             }
