@@ -52,47 +52,64 @@ namespace WindowsFormsAppFinal
             string titre = txtTitre.Text;
             string genre = genreList.Text;
             string anneeSortie = yearsPicker.Text;
-            string prix = txtPrix.Text + " €";
+            string prixText = txtPrix.Text;
             string statut = statutList.Text;
 
-            if (titre == "" || genre == "" || anneeSortie == "" || prix == "" || statut == "")//verifier que les champs ne sont pas vide
+            if (titre == "" || genre == "" || anneeSortie == "" || prixText == "" || statut == "")//verifier que les champs ne sont pas vide
             {
                 MessageBox.Show("Merci de remplir tout les champs");
             }
             else
             {
-                using (SqlConnection connection = new SqlConnection(connectionString))
+                if (string.IsNullOrWhiteSpace(txtTitre.Text))
                 {
-                    try
+                    MessageBox.Show("Le titre ne peut pas être vide");
+                }
+                else
+                {
+                    if (!decimal.TryParse(prixText, out decimal prix)) // verifie les lettres dans la textBox
                     {
-                        //appel de fonction open()
-                        connection.Open();
-                        //requete sql pour ajouter dans la base de donnée
-                        string query = "INSERT INTO Jeux (titre, genre, anneeSortie, prix, statut) VALUES(@titre, @genre, @anneeSortie, @prix, @statut);";
-                        SqlCommand cmd = new SqlCommand(query, connection);
-
-                        cmd.Parameters.AddWithValue("@titre", titre);
-                        cmd.Parameters.AddWithValue("@genre", genre);
-                        cmd.Parameters.AddWithValue("@anneeSortie", anneeSortie);
-                        cmd.Parameters.AddWithValue("@prix", prix);
-                        cmd.Parameters.AddWithValue("@statut", statut);
-
-                        cmd.ExecuteNonQuery();
-                        dgUpdate();//raffraichissement de la page
-
-                        txtTitre.Clear();//videer le contenu de la textbox pour le titre
-                        genreList.SelectedIndex = -1;//remettre la liste à l'index -1, donc rien
-                        yearsPicker.Value = DateTime.Now;//remettre la date à la date d'ajoutrd'hui
-                        txtPrix.Clear();
-                        statutList.SelectedIndex = -1;
+                        MessageBox.Show("Le prix doit être un nombre ou un chiffre !");
                     }
-                    catch (SqlException ex)//bloc try/catch pouir gerer une eventuelle erreur sql, au cas ou l'insertion de donnée dans la base se passerait mal
+                    else if (prix < 0) // verifie si le prix est négatif
                     {
-                        MessageBox.Show("erreur" + ex.Message);
+                        MessageBox.Show("Le prix ne peux pas être négatif !");
+                    }
+                    else // Si tout est correct alors on affiche aucun message d'erreur 
+                    {
+                        using (SqlConnection connection = new SqlConnection(connectionString))
+                        {
+                            try
+                            {
+                                //appel de fonction open()
+                                connection.Open();
+                                //requete sql pour ajouter dans la base de donnée
+                                string query = "INSERT INTO Jeux (titre, genre, anneeSortie, prix, statut) VALUES(@titre, @genre, @anneeSortie, @prix, @statut);";
+                                SqlCommand cmd = new SqlCommand(query, connection);
+
+                                cmd.Parameters.AddWithValue("@titre", titre);
+                                cmd.Parameters.AddWithValue("@genre", genre);
+                                cmd.Parameters.AddWithValue("@anneeSortie", anneeSortie);
+                                cmd.Parameters.AddWithValue("@prix", prix);
+                                cmd.Parameters.AddWithValue("@statut", statut);
+
+                                cmd.ExecuteNonQuery();
+                                dgUpdate();//raffraichissement de la page
+
+                                txtTitre.Clear();//videer le contenu de la textbox pour le titre
+                                genreList.SelectedIndex = -1;//remettre la liste à l'index -1, donc rien
+                                yearsPicker.Value = DateTime.Now;//remettre la date à la date d'ajoutrd'hui
+                                txtPrix.Clear();
+                                statutList.SelectedIndex = -1;
+                            }
+                            catch (SqlException ex)//bloc try/catch pouir gerer une eventuelle erreur sql, au cas ou l'insertion de donnée dans la base se passerait mal
+                            {
+                                MessageBox.Show("erreur" + ex.Message);
+                            }
+                        }
                     }
                 }
             }
-
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -161,7 +178,6 @@ namespace WindowsFormsAppFinal
             {
                 MessageBox.Show("Erreur lors de la mise à jour de la liste des jeux: " + ex.Message);
             }
-
         }
 
         private void txtPrix_TextChanged(object sender, EventArgs e)// méthode qui permet d'afficher un message d'erreur si le prix indiqué est une lettre ou est <0 ou les deux 
